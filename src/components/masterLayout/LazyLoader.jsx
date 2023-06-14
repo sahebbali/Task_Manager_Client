@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{Fragment} from 'react'
 import '../../assets/CSS/progress.css'
 const LazyLoader = () => {
   return (
