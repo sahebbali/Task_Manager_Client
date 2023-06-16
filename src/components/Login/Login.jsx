@@ -1,33 +1,33 @@
 import React, {Fragment, useRef} from 'react';
 import {Link,NavLink,BrowserRouter,HashRouter} from "react-router-dom";
-
+import { LoginRequest } from '../../APIRequest/APIRequest';
 import '../../assets/CSS/bootstrap.css'
-// import {ErrorToast, IsEmail, IsEmpty} from "../../helper/FormHelper";
+import {ErrorToast, IsEmail, IsEmpty} from "../../helper/FormHelper";
 
 
 
 const Login = () => {
-    // let passRef,emailRef=useRef();
+    let passRef,emailRef=useRef();
 
-    // const SubmitLogin=()=>{
-    //     let email=emailRef.value;
-    //     let pass=passRef.value;
-    //     if(IsEmail(email)){
-    //         ErrorToast("Invalid Email Address")
-    //     }
-    //     else if(IsEmpty(pass)){
-    //         ErrorToast("Password Required")
-    //     }
-    //     else{
-    //         LoginRequest(email,pass).then((result)=>{
-    //             if(result===true){
-    //                 window.location.href="/"
-    //             }
-    //         })
+    const SubmitLogin=()=>{
+        let email=emailRef.value;
+        let pass=passRef.value;
+        if(IsEmail(email)){
+            ErrorToast("Invalid Email Address")
+        }
+        else if(IsEmpty(pass)){
+            ErrorToast("Password Required")
+        }
+        else{
+            LoginRequest(email,pass).then((result)=>{
+                if(result===true){
+                    window.location.href="/"
+                }
+            })
 
     
-    //     }
-    // }
+        }
+    }
 
     return (
         <Fragment>
@@ -38,11 +38,11 @@ const Login = () => {
                             <div className="card-body">
                                 <h4>SIGN IN</h4>
                                 <br/>
-                                <input  placeholder="User Email" className="form-control animated fadeInUp" type="email"/>
+                                <input ref={(input)=>emailRef=input} placeholder="User Email" className="form-control animated fadeInUp" type="email"/>
                                 <br/>
-                                <input  placeholder="User Password" className="form-control animated fadeInUp" type="password"/>
+                                <input ref={(input)=>passRef=input} placeholder="User Password" className="form-control animated fadeInUp" type="password"/>
                                 <br/>
-                                <button  className="btn w-100 animated fadeInUp float-end btn-primary">Next</button>
+                                <button onClick={SubmitLogin} className="btn w-100 animated fadeInUp float-end btn-primary">Next</button>
                                 <hr/>
                                 <div className="float-end mt-3">
 

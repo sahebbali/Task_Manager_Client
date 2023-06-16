@@ -21,6 +21,7 @@ class FormHelper {
     }
     SuccessToast(msg) {
         toast.success(msg);
+        
     }
 
 

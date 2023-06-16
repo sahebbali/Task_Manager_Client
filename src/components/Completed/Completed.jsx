@@ -2,36 +2,32 @@ import React, {Fragment, useEffect} from 'react';
 import {Container} from "react-bootstrap";
 import {AiOutlineCalendar, AiOutlineDelete} from "react-icons/all";
 import {AiOutlineEdit} from "react-icons/ai";
-// import {TaskListByStatus} from "../../APIRequest/APIRequest";
-// import {useSelector} from "react-redux";
-// import {DeleteToDO} from "../../helper/DeleteAlert";
-// import {UpdateToDO} from "../../helper/UpdateAlert";
+import {TaskListByStatus} from "../../APIRequest/APIRequest";
+import {useSelector} from "react-redux";
+import {DeleteToDO} from "../../helper/DeleteAlert";
+import {UpdateToDO} from "../../helper/UpdateAlert";
 const Completed = () => {
 
-    // useEffect(()=>{
-    //     TaskListByStatus("Completed");
-    // },[])
+    useEffect(()=>{
+     TaskListByStatus("Completed");
+    },[])
 
-    // const CompletedList = useSelector((state) => state.task.Completed)
+    const CompletedList = useSelector((state) => state.task.Completed)
+    const DeleteItem=(id)=>{
+        DeleteToDO(id).then((result)=>{
+            if(result===true){
+                TaskListByStatus("Completed");
+            }
+        })
+    }
 
-
-
-
-    // const DeleteItem=(id)=>{
-    //     DeleteToDO(id).then((result)=>{
-    //         if(result===true){
-    //             TaskListByStatus("Completed");
-    //         }
-    //     })
-    // }
-
-    // const StatusChangeItem=(id,status)=>{
-    //     UpdateToDO(id, status).then((result)=>{
-    //         if(result===true){
-    //             TaskListByStatus("Completed");
-    //         }
-    //     })
-    // }
+    const StatusChangeItem=(id,status)=>{
+        UpdateToDO(id, status).then((result)=>{
+            if(result===true){
+                TaskListByStatus("Completed");
+            }
+        })
+    }
 
     return (
         <Fragment>
@@ -53,20 +49,23 @@ const Completed = () => {
                 </div>
                 <div className="row p-0 m-0">
                    
-                            <div  className="col-12 col-lg-4 col-sm-6 col-md-4  p-2">
+                {
+                        CompletedList.map((item,i)=>
+                            <div key={i.toString()} className="col-12 col-lg-4 col-sm-6 col-md-4  p-2">
                                 <div className="card h-100">
                                     <div className="card-body">
-                                        <h6 className="animated fadeInUp">this is title</h6>
-                                        <p className="animated fadeInUp">This is Description</p>
+                                        <h6 className="animated fadeInUp">{item.title}</h6>
+                                        <p className="animated fadeInUp">{item.description}</p>
                                         <p className="m-0 animated fadeInUp p-0">
-                                            <AiOutlineCalendar/> 14-062023
-                                            <a   className="icon-nav text-primary mx-1"><AiOutlineEdit /></a>
-                                            <a  className="icon-nav text-danger mx-1"><AiOutlineDelete /></a>
-                                            <a className="badge float-end bg-success">status</a>
+                                            <AiOutlineCalendar/> {item.createdDate}
+                                            <a onClick={StatusChangeItem.bind(this,item._id,item.status)}  className="icon-nav text-primary mx-1"><AiOutlineEdit /></a>
+                                            <a onClick={DeleteItem.bind(this,item._id)} className="icon-nav text-danger mx-1"><AiOutlineDelete /></a>
+                                            <a className="badge float-end bg-success">{item.status}</a>
                                         </p>
                                     </div>
                                 </div>
                             </div>
+                        )}
                 </div>
             </Container>
         </Fragment>
