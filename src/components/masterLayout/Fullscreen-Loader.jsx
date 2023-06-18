@@ -3,7 +3,6 @@ import {useSelector} from "react-redux";
 import '../../assets/CSS/progress.css'
 const FullscreenLoader = () => {
     const loader = useSelector((state)=> state.settings.loader);
-    console.log(loader);
     return (
         <Fragment>
             <div className={loader+" LoadingOverlay"}>

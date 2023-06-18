@@ -9,8 +9,8 @@ import ProgressPage from "./pages/ProgressPage";
 import CanceledPage from "./pages/CanceledPage";
 import NewPage from './pages/NewPage';
 import SendOTPPage from './pages/AccountRecover/SendOTPPage'
-import VerifyOTPPage from './pages/AccountRecover/VerifyOTPPage'
-import CreatePasswordPage from './pages/AccountRecover/CreatePasswordPage'
+import VerifyOTPPage from './pages/AccountRecover/Verify-OTP-Page'
+import CreatePasswordPage from './pages/AccountRecover/Create-Password-Page'
 import ForgetpassPage from './pages/ForgetpassPage';
 import CompletedPage from './pages/CompletedPage';
 import Page404 from './pages/Page404';

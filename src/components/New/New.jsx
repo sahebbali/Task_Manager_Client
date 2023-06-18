@@ -19,6 +19,7 @@ const New = () => {
 
     const DeleteItem=(id)=>{
         DeleteToDO(id).then((result)=>{
+            console.log(id);
             if(result===true){
                 TaskListByStatus("New");
             }
@@ -56,7 +57,7 @@ const New = () => {
                 <div className="row p-0 m-0">
                     {
                         NewList.map((item)=>
-                            <div className="col-12 col-lg-4 col-sm-6 col-md-4  p-2">
+                            <div key={item._id} className="col-12 col-lg-4 col-sm-6 col-md-4  p-2">
                             <div className="card h-100">
                                 <div className="card-body">
                                     <h6 className="animated fadeInUp">{item.title}</h6>

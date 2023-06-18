@@ -1,63 +1,65 @@
 import React, {useEffect, useRef} from 'react';
-// import {GetProfileDetails, ProfileUpdateRequest} from "../../APIRequest/APIRequest";
-// import {useSelector} from "react-redux";
-// import {ErrorToast, getBase64, IsEmail, IsEmpty, IsMobile} from "../../helper/FormHelper";
-// import {useNavigate} from "react-router-dom";
+import {GetProfileDetails, ProfileUpdateRequest} from "../../APIRequest/APIRequest";
+import {useSelector} from "react-redux";
+import {ErrorToast, getBase64, IsEmail, IsEmpty, IsMobile} from "../../helper/FormHelper";
+import {useNavigate} from "react-router-dom";
 
 const Profile = () => {
-    // let emailRef,firstNameRef,lastNameRef,mobileRef,passwordRef,userImgRef,userImgView=useRef();
+    let emailRef,firstNameRef,lastNameRef,mobileRef,passwordRef,userImgRef,userImgView=useRef();
 
-    // useEffect(()=>{
-    //     GetProfileDetails()
-    // },[])
-
-
-    // const ProfileData = useSelector((state) => state.profile.value);
+    useEffect(()=>{
+        GetProfileDetails()
+    },[])
 
 
-    // let navigate=useNavigate();
+    const ProfileData = useSelector((state) => state.profile.value);
+
+    console.log(ProfileData);
+
+    let navigate=useNavigate();
     
     
-    // const PreviewImage = () => {
-    //     let ImgFile = userImgRef.files[0];
-    //     getBase64(ImgFile).then((base64Img)=>{
-    //         userImgView.src=base64Img;
-    //     })
-    // }
+    const PreviewImage = () => {
+        let ImgFile = userImgRef.files[0];
+        getBase64(ImgFile).then((base64Img)=>{
+            userImgView.src=base64Img;
+        })
+    }
 
-    
-    
-    // const UpdateMyProfile = () => {
-    //     let email=emailRef.value;
-    //     let fastName=firstNameRef.value;
-    //     let lastName=lastNameRef.value;
-    //     let mobile=mobileRef.value;
-    //     let password= passwordRef.value;
-    //     let photo=userImgView.src
 
-    //     if(IsEmail(email)){
-    //         ErrorToast("Valid Email Address Required !")
-    //     }
-    //     else if(IsEmpty(fastName)){
-    //         ErrorToast("First Name Required !")
-    //     }
-    //     else if(IsEmpty(lastName)){
-    //         ErrorToast("Last Name Required !")
-    //     }
-    //     else if(!IsMobile(mobile)){
-    //         ErrorToast("Valid Mobile  Required !")
-    //     }
-    //     else if(IsEmpty(password)){
-    //         ErrorToast("Password Required !")
-    //     }
-    //     else{
-    //         ProfileUpdateRequest(email,fastName,lastName,mobile,password,photo).then((result)=>{
-    //             if(result===true){
-    //                 navigate("/")
-    //             }
-    //         })
-    //     }
-    // }
+
+   
+    const UpdateMyProfile = () => {
+        let email=emailRef.value;
+        let fastName=firstNameRef.value;
+        let lastName=lastNameRef.value;
+        let mobile=mobileRef.value;
+        let password= passwordRef.value;
+        let photo=userImgView.src
+
+        if(IsEmail(email)){
+            ErrorToast("Valid Email Address Required !")
+        }
+        else if(IsEmpty(fastName)){
+            ErrorToast("First Name Required !")
+        }
+        else if(IsEmpty(lastName)){
+            ErrorToast("Last Name Required !")
+        }
+        else if(!IsMobile(mobile)){
+            ErrorToast("Valid Mobile  Required !")
+        }
+        else if(IsEmpty(password)){
+            ErrorToast("Password Required !")
+        }
+        else{
+            ProfileUpdateRequest(email,fastName,lastName,mobile,password,photo).then((result)=>{
+                if(result===true){
+                    navigate("/")
+                }
+            })
+        }
+    }
 
 
     return (
@@ -67,12 +69,12 @@ const Profile = () => {
                     <div className="card">
                         <div className="card-body">
                             <div className="container-fluid">
-                                <img   className="icon-nav-img-lg" src='' alt=""/>
+                                <img ref={(input)=> userImgView=input}  className="icon-nav-img-lg" src={ProfileData['photo']} alt=""/>
                                 <hr/>
                                 <div className="row">
                                     <div className="col-4 p-2">
                                         <label>Profile Picture</label>
-                                        <input   ref={(input)=>userImgRef=input} placeholder="User Email" className="form-control animated fadeInUp" type="file"/>
+                                        <input onChange={PreviewImage}  ref={(input)=>userImgRef=input} placeholder="User Email" className="form-control animated fadeInUp" type="file"/>
                                     </div>
                                     <div className="col-4 p-2">
                                         <label>Email Address</label>
@@ -93,9 +95,9 @@ const Profile = () => {
                                     <div className="col-4 p-2">
                                         <label>Password</label>
                                         <input  defaultValue={ProfileData['password']}  ref={(input)=>passwordRef=input} placeholder="User Password" className="form-control animated fadeInUp" type="password"/>
-                                    </div>key={Date.now()}
+                                    </div>
                                     <div className="col-4 p-2">
-                                        <button   className="btn w-100 float-end btn-primary animated fadeInUp">Update</button>
+                                        <button onClick={UpdateMyProfile} className="btn w-100 float-end btn-primary animated fadeInUp">Update</button>
                                     </div>
                                 </div>
                             </div>
