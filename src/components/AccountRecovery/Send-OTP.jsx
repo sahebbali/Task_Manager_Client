@@ -7,6 +7,8 @@ import {useNavigate} from "react-router-dom";
 const SendOTP = () => {
     let emailRef=useRef();
     let navigate=useNavigate();
+
+    
     const VerifyEmail=()=>{
         let email=emailRef.value;
         console.log("hello")
